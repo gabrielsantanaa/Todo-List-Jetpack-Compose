@@ -10,10 +10,7 @@ import androidx.compose.material.icons.filled.ArrowBackIosNew
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.gabriel.personal.projects.todolist.R
-import com.gabriel.personal.projects.todolist.data.db.entity.Task
 
 @Composable
 fun AddTaskBody(
@@ -46,9 +43,7 @@ fun AddTaskBody(
             }
         }
     ) {
-
-
-        Column {
+        Column(Modifier.padding(it)) {
             TaskInput(
                 modifier = Modifier
                     .fillMaxWidth()

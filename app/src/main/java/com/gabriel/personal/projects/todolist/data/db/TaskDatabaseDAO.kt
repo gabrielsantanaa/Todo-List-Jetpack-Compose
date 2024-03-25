@@ -25,7 +25,7 @@ interface TaskDatabaseDAO {
     @Update
     suspend fun updateTask(task: Task)
 
-    @Query("SELECT * FROM my_tasks_table WHERE taskId = :taskId")
+    @Query("SELECT * FROM my_tasks_table WHERE taskId = :taskId LIMIT 1")
     suspend fun getById(taskId: Long): Task?
 
     @Query("UPDATE my_tasks_table SET isComplete = :isComplete WHERE taskId = :taskId")

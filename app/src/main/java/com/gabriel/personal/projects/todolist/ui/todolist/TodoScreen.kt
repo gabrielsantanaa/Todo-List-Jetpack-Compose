@@ -3,6 +3,7 @@ package com.gabriel.personal.projects.todolist.ui.todolist
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -21,7 +22,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.paging.compose.collectAsLazyPagingItems
-import androidx.paging.compose.items
 import com.gabriel.personal.projects.todolist.R
 import com.gabriel.personal.projects.todolist.enums.TaskFilterType
 import com.gabriel.personal.projects.todolist.ui.components.AlertDialogTaskDeletion
@@ -175,7 +175,7 @@ fun TodoBody(
                 }
             ) {
 
-                Column {
+                Column(Modifier.padding(it)) {
                     SearchBar(
                         isEnabled = viewModel.searchBarState,
                         text = viewModel.searchQuery,
@@ -219,19 +219,19 @@ fun TodoBody(
                         modifier = Modifier
                             .nestedScroll(nestedScrollConnection)
                     ) {
-                        items(tasks) { task ->
+                        items(tasks.itemCount) { task ->
                             task?.let {
                                 TaskItemView(
                                     modifier = Modifier
                                         .clickable {
-                                            viewModel.updateCurrentSelectedTask(task)
+                                            viewModel.updateCurrentSelectedTask(tasks[task]!!)
                                             scope.launch { bottomSheetState.show() }
                                         }
                                         .fillMaxWidth()
                                         .padding(24.dp),
-                                    task = task,
+                                    task = tasks[task]!!,
                                     onCheckboxPressed = { checked ->
-                                        viewModel.updateTask(task, checked)
+                                        viewModel.updateTask(tasks[task]!!, checked)
                                     }
                                 )
                                 Divider()
